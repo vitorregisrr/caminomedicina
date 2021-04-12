@@ -39,6 +39,7 @@ const Map = ({ places }: MapProps) => {
   return (
     <MapContainer
       center={[0, 0]}
+      attributionControl={false}
       zoom={3}
       scrollWheelZoom={true}
       style={{ height: '100%', width: '100%' }}
