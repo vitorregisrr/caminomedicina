@@ -1,13 +1,13 @@
 export default {
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    url: 'https://my-trips.willianjusten.com.br',
-    site_name: 'My Trips',
+    locale: 'pt_br',
+    url: 'https://caminomedicina.com.br',
+    site_name: '꧁Camino Medicina',
   },
   twitter: {
-    handle: '@Willian_justen',
-    site: '@site',
+    handle: '@caminomedicina',
+    site: '@caminomedicina',
     cardType: 'summary_large_image',
   },
 }
