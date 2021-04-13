@@ -1,10 +1,14 @@
 import { useRouter } from 'next/dist/client/router'
-import { MapContainer, TileLayer, Marker } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, MapConsumer } from 'react-leaflet'
+import 'leaflet-loading'
+
+import * as S from './styles'
 
 type Place = {
   id: string
   name: string
   slug: string
+  visited: boolean
   location: {
     longitude: number
     latitude: number
@@ -37,33 +41,56 @@ const Map = ({ places }: MapProps) => {
   const router = useRouter()
 
   return (
-    <MapContainer
-      center={[0, 0]}
-      attributionControl={false}
-      zoom={3}
-      scrollWheelZoom={true}
-      style={{ height: '100%', width: '100%' }}
-    >
-      <CustomTileLayer />
+    <S.MapWrapper>
+      <MapContainer
+        center={[-15, -55]}
+        attributionControl={false}
+        zoom={3}
+        minZoom={4}
+        maxBounds={[
+          [-180, 180],
+          [180, -180],
+        ]}
+        // @ts-ignore
+        loadingControl={true}
+        scrollWheelZoom={true}
+        style={{ height: '100%', width: '100%' }}
+      >
+        <CustomTileLayer />
+        <MapConsumer>
+          {(map) => {
+            const width =
+              window.innerWidth ||
+              document.documentElement.clientWidth ||
+              document.body.clientWidth
 
-      {places?.map(({ slug, name, location }) => {
-        const { latitude, longitude } = location
+            if (width < 768) {
+              map.setMinZoom(2)
+            }
 
-        return (
-          <Marker
-            key={`place-${slug}`}
-            position={[latitude, longitude]}
-            title={name}
-            eventHandlers={{
-              click: () => {
-                router.push(`/place/${slug}`)
-              },
-            }}
-            aria-label={name}
-          ></Marker>
-        )
-      })}
-    </MapContainer>
+            return null
+          }}
+        </MapConsumer>
+
+        {places?.map(({ slug, name, location }) => {
+          const { latitude, longitude } = location
+
+          return (
+            <Marker
+              key={`place-${slug}`}
+              position={[latitude, longitude]}
+              title={name}
+              eventHandlers={{
+                click: () => {
+                  router.push(`/place/${slug}`)
+                },
+              }}
+              aria-label={name}
+            ></Marker>
+          )
+        })}
+      </MapContainer>
+    </S.MapWrapper>
   )
 }
 

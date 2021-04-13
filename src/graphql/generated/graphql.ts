@@ -1742,6 +1742,7 @@ export type Place = Node & {
   location: Location;
   gallery: Array<Asset>;
   description?: Maybe<RichText>;
+  visited?: Maybe<Scalars['Boolean']>;
   /** List of Place versions */
   history: Array<Version>;
 };
@@ -1812,6 +1813,7 @@ export type PlaceCreateInput = {
   location: LocationInput;
   gallery?: Maybe<AssetCreateManyInlineInput>;
   description?: Maybe<Scalars['RichTextAST']>;
+  visited?: Maybe<Scalars['Boolean']>;
 };
 
 export type PlaceCreateManyInlineInput = {
@@ -1955,6 +1957,9 @@ export type PlaceManyWhereInput = {
   gallery_every?: Maybe<AssetWhereInput>;
   gallery_some?: Maybe<AssetWhereInput>;
   gallery_none?: Maybe<AssetWhereInput>;
+  visited?: Maybe<Scalars['Boolean']>;
+  /** All values that are not equal to given value. */
+  visited_not?: Maybe<Scalars['Boolean']>;
 };
 
 export enum PlaceOrderByInput {
@@ -1969,7 +1974,9 @@ export enum PlaceOrderByInput {
   NameAsc = 'name_ASC',
   NameDesc = 'name_DESC',
   SlugAsc = 'slug_ASC',
-  SlugDesc = 'slug_DESC'
+  SlugDesc = 'slug_DESC',
+  VisitedAsc = 'visited_ASC',
+  VisitedDesc = 'visited_DESC'
 }
 
 export type PlaceUpdateInput = {
@@ -1978,6 +1985,7 @@ export type PlaceUpdateInput = {
   location?: Maybe<LocationInput>;
   gallery?: Maybe<AssetUpdateManyInlineInput>;
   description?: Maybe<Scalars['RichTextAST']>;
+  visited?: Maybe<Scalars['Boolean']>;
 };
 
 export type PlaceUpdateManyInlineInput = {
@@ -2000,6 +2008,7 @@ export type PlaceUpdateManyInlineInput = {
 export type PlaceUpdateManyInput = {
   name?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['RichTextAST']>;
+  visited?: Maybe<Scalars['Boolean']>;
 };
 
 export type PlaceUpdateManyWithNestedWhereInput = {
@@ -2163,6 +2172,9 @@ export type PlaceWhereInput = {
   gallery_every?: Maybe<AssetWhereInput>;
   gallery_some?: Maybe<AssetWhereInput>;
   gallery_none?: Maybe<AssetWhereInput>;
+  visited?: Maybe<Scalars['Boolean']>;
+  /** All values that are not equal to given value. */
+  visited_not?: Maybe<Scalars['Boolean']>;
 };
 
 /** References Place record uniquely */
@@ -2878,13 +2890,13 @@ export type GetPlacesQuery = (
   { __typename?: 'Query' }
   & { places: Array<(
     { __typename?: 'Place' }
-    & Pick<Place, 'id' | 'name' | 'slug'>
+    & Pick<Place, 'id' | 'name' | 'slug' | 'visited'>
     & { location: (
       { __typename?: 'Location' }
       & Pick<Location, 'longitude' | 'latitude'>
     ), description?: Maybe<(
       { __typename?: 'RichText' }
-      & Pick<RichText, 'html'>
+      & Pick<RichText, 'html' | 'text'>
     )>, gallery: Array<(
       { __typename?: 'Asset' }
       & Pick<Asset, 'url' | 'width' | 'height'>
@@ -2901,13 +2913,13 @@ export type GetPlaceBySlugQuery = (
   { __typename?: 'Query' }
   & { place?: Maybe<(
     { __typename?: 'Place' }
-    & Pick<Place, 'id' | 'name' | 'slug'>
+    & Pick<Place, 'id' | 'name' | 'slug' | 'visited'>
     & { location: (
       { __typename?: 'Location' }
       & Pick<Location, 'longitude' | 'latitude'>
     ), description?: Maybe<(
       { __typename?: 'RichText' }
-      & Pick<RichText, 'html'>
+      & Pick<RichText, 'html' | 'text'>
     )>, gallery: Array<(
       { __typename?: 'Asset' }
       & Pick<Asset, 'url' | 'width' | 'height'>

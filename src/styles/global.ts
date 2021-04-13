@@ -1,4 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
+// @ts ignore
+import 'leaflet-loading/src/Control.Loading.css'
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -34,6 +36,7 @@ const GlobalStyles = createGlobalStyle`
   a {
     color: var(--highlight);
   }
+
 `
 
 export default GlobalStyles
